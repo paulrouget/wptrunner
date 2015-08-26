@@ -62,7 +62,7 @@ class ServoTestharnessExecutor(ProcessTestExecutor):
         self.result_data = None
         self.result_flag = threading.Event()
 
-        args = ["--cpu", "--hard-fail", "-u", "Servo/wptrunner", "-z", self.test_url(test)]
+        args = ["--cpu", "--hard-fail", "-u", "Servo/wptrunner", "-z", "-e", self.test_url(test)]
         for stylesheet in self.browser.user_stylesheets:
             args += ["--user-stylesheet", stylesheet]
         debug_args, command = browser_command(self.binary, args, self.debug_info)
@@ -191,7 +191,7 @@ class ServoRefTestExecutor(ProcessTestExecutor):
         with TempFilename(self.tempdir) as output_path:
             debug_args, command = browser_command(
                 self.binary,
-                ["--cpu", "--hard-fail", "--exit", "-u", "Servo/wptrunner",
+                ["--cpu", "--hard-fail", "--exit", "-u", "Servo/wptrunner", "-e",
                  "-Z", "disable-text-aa", "--output=%s" % output_path, full_url],
                 self.debug_info)
 
